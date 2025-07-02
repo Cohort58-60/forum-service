@@ -5,6 +5,7 @@ import ait.cohort5860.accounting.dto.UserDto;
 import ait.cohort5860.accounting.dto.UserEditDto;
 import ait.cohort5860.accounting.dto.UserRegisterDto;
 import ait.cohort5860.accounting.service.UserAccountService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,7 @@ public class UserAccountController {
     private final UserAccountService userAccountService;
 
     @PostMapping("/register")
-    public UserDto register(@RequestBody UserRegisterDto userRegisterDto) {
+    public UserDto register(@RequestBody @Valid UserRegisterDto userRegisterDto) {
         return userAccountService.register(userRegisterDto);
     }
 
