@@ -1,9 +1,6 @@
 package ait.cohort5860.accounting.controller;
 
-import ait.cohort5860.accounting.dto.RolesDto;
-import ait.cohort5860.accounting.dto.UserDto;
-import ait.cohort5860.accounting.dto.UserEditDto;
-import ait.cohort5860.accounting.dto.UserRegisterDto;
+import ait.cohort5860.accounting.dto.*;
 import ait.cohort5860.accounting.service.UserAccountService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +22,7 @@ public class UserAccountController {
 
     @PostMapping("/login")
     public UserDto login(Principal principal) {
-        return userAccountService.getUser(principal.getName()) ;
+        return userAccountService.getUser(principal.getName());
     }
 
     @DeleteMapping("/user/{login}")
@@ -51,11 +48,16 @@ public class UserAccountController {
     @PatchMapping("/password")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void changePassword(Principal principal, @RequestHeader("X-Password") String newPassword) {
-       userAccountService.changePassword(principal.getName(), newPassword);
+        userAccountService.changePassword(principal.getName(), newPassword);
     }
 
     @GetMapping("/user/{login}")
     public UserDto getUser(@PathVariable String login) {
         return userAccountService.getUser(login);
+    }
+
+    @PostMapping("/email")
+    public void sendEmail(@RequestBody @Valid EmailDto emailDto) {
+        userAccountService.sendEmail(emailDto);
     }
 }
